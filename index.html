@@ -1,85 +1,792 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>projet1</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>ALLEZCINE! - Site de streaming</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #fe4240;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .logo-red {
+            color: var(--primary);
+        }
+        
+        .navbar {
+            background-color: transparent;
+            position: absolute;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .navbar-dark .navbar-nav .nav-link {
+            color: white;
+        }
+        
+        .dropdown-menu {
+            background-color: white;
+            border-radius: 0;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            height: 600px;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .hero-title span {
+            color: var(--primary);
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .btn-watch {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .btn-watch:hover {
+            background-color: #d63031;
+            color: white;
+        }
+        
+        .hero-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .hero-indicator {
+            width: 12px;
+            height: 12px;
+            background-color: #ddd;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .hero-indicator.active {
+            background-color: var(--primary);
+        }
+        
+        /* Top Contact Bar */
+        .top-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 0;
+        }
+        
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        /* Movie Sections */
+        .section-title {
+            position: relative;
+            margin: 40px 0 20px;
+            padding-left: 15px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .nav-tabs .nav-link {
+            border: none;
+            color: #333;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary);
+            background: none;
+            font-weight: bold;
+        }
+        
+        .movie-card {
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background: #333;
+            height: 200px;
+        }
+        
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .movie-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .movie-info {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+        
+        .movie-title {
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        .movie-year {
+            font-size: 12px;
+            color: #ddd;
+        }
+        
+        .see-all-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+        
+        /* Shop Section */
+        .shop-section {
+            margin-top: 40px;
+        }
+        
+        .shop-card {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .shop-price {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+        }
+        
+        /* Modal */
+        .movie-modal {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 350px;
+            background: black;
+            color: white;
+            z-index: 1050;
+        }
+        
+        .modal-image {
+            position: relative;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 24px;
+        }
+        
+        .modal-content {
+            padding: 15px;
+        }
+        
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 40px 0;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            margin-bottom: 15px;
+            border-radius: 0;
+        }
+        
+        .contact-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-transform: uppercase;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background-color: #f9f9f9;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .newsletter input {
+            border-radius: 0;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-right: 5px;
+        }
+        
+        .newsletter button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-transform: uppercase;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        footer h5 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        
+        footer ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        footer ul li {
+            margin-bottom: 10px;
+        }
+        
+        footer ul li a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        footer ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            color: white;
+            margin: 0 5px;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0.7;
+        }
+        
+        .back-to-top:hover {
+            opacity: 1;
+            color: white;
+        }
+        
+        /* Social sidebar */
+        .social-sidebar {
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+        
+        .social-sidebar a {
+            display: block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: white;
+            margin-bottom: 1px;
+        }
+        
+        .social-sidebar .facebook {
+            background-color: #3b5998;
+        }
+        
+        .social-sidebar .twitter {
+            background-color: #1da1f2;
+        }
+        
+        .social-sidebar .google {
+            background-color: #db4437;
+        }
+        
+        .social-sidebar .pinterest {
+            background-color: #bd081c;
+        }
+    </style>
 </head>
 <body>
-    <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"><strong><span class="text-danger">ALLEZ</span><span class="text-">CINE!</span></strong></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">GENRE</a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Comedy</a></li>
-            <li><a class="dropdown-item" href="#">Fiction</a></li>
-            <li><a class="dropdown-item" href="#">Westem</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Contact</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">rechercher</button>
-      </form>
+    <!-- Top Bar -->
+    <div class="top-bar d-none d-md-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <i class="fas fa-phone-alt me-2"></i> (+33) 123 456 789
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="#login" class="me-3">LOGIN</a>
+                    <a href="#register">REGISTER</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</nav>
-</header>
-<section>
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+    <!-- Social Sidebar -->
+    <div class="social-sidebar d-none d-md-block">
+        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="google"><i class="fab fa-google-plus-g"></i></a>
+        <a href="#" class="pinterest"><i class="fab fa-pinterest-p"></i></a>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#"><span class="logo"><span class="logo-red">ALLEZ</span>CINE!</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                HOME
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Home 1</a></li>
+                                <li><a class="dropdown-item" href="#">Home 2</a></li>
+                                <li><a class="dropdown-item" href="#">Home 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">GENRES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">MOVIES</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">TV SHOWS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">CONTACT</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex ms-3">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">LATEST <span>ON</span>LINE <span>MO</span>VIES</h1>
+                <p class="hero-subtitle">IN SPACE NO ONE CAN HEAR YOU SCREAM</p>
+                <button class="btn btn-watch">WATCH TRAILER</button>
+                <div class="hero-indicators">
+                    <div class="hero-indicator active"></div>
+                    <div class="hero-indicator"></div>
+                    <div class="hero-indicator"></div>
+                    <div class="hero-indicator"></div>
+                </div>
+            </div>
         </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="../projet1/images/hostel.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>LATEST ONLINE MOVIES</h5>
-              <p>IN SPACE NO ONE CAN HEAR YOU SCREAM</p>
+    </header>
+
+    <!-- Featured Movies Section -->
+    <section class="featured-movies container">
+        <h2 class="section-title">FEATURED MOVIES</h2>
+        
+        <ul class="nav nav-tabs mb-4" id="movieTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">ALL</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="action-tab" data-bs-toggle="tab" data-bs-target="#action" type="button" role="tab" aria-controls="action" aria-selected="false">ACTION</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="comedy-tab" data-bs-toggle="tab" data-bs-target="#comedy" type="button" role="tab" aria-controls="comedy" aria-selected="false">COMEDY</button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="movieTabsContent">
+            <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <div class="row">
+                    <!-- Movie Cards - Row 1 -->
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 1">
+                            <div class="movie-info">
+                                <h5 class="movie-title">God's Own Country</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 2">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Bad Times</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 3">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Jason Bourne</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 4">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Moonlit</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 5">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Papillon</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 6">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Cold War</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Movie Cards - Row 2 -->
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 7">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Star Trek</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 8">
+                            <div class="movie-info">
+                                <h5 class="movie-title">The Glass Ship</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 9">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Cold War</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 10">
+                            <div class="movie-info">
+                                <h5 class="movie-title">The Garden of Allah</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 11">
+                            <div class="movie-info">
+                                <h5 class="movie-title">The Jungle Book</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Movie 12">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Bohemian Rhapsody</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <img src="../projet1/images/batmanmovi.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
+            
+            <div class="tab-pane fade" id="action" role="tabpanel" aria-labelledby="action-tab">
+                <!-- Content for action movies would go here -->
+                <div class="row">
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="/api/placeholder/400/300" alt="Action Movie 1">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Jason Bourne</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="carousel-item">
-            <img src="../projet1/images/inception.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
+            
+            <div class="tab-pane fade" id="comedy" role="tabpanel" aria-labelledby="comedy-tab">
+                <div class="row">
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Comedy Movie 1">
+                            <div class="movie-info">
+                                <h5 class="movie-title">The Glass Ship</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-</section>
+        
+        <button class="see-all-btn">PLUS SEE ALL FILMS</button>
+    </section>
+
+    <!-- Featured TV Series Section -->
+    <section class="featured-series container">
+        <h2 class="section-title">FEATURES SERIES TV</h2>
+        
+        <ul class="nav nav-tabs mb-4" id="seriesTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="all-series-tab" data-bs-toggle="tab" data-bs-target="#all-series" type="button" role="tab" aria-controls="all-series" aria-selected="true">ALL</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="action-series-tab" data-bs-toggle="tab" data-bs-target="#action-series" type="button" role="tab" aria-controls="action-series" aria-selected="false">ACTION</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="comedy-series-tab" data-bs-toggle="tab" data-bs-target="#comedy-series" type="button" role="tab" aria-controls="comedy-series" aria-selected="false">COMEDY</button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="seriesTabsContent">
+            <div class="tab-pane fade show active" id="all-series" role="tabpanel" aria-labelledby="all-series-tab">
+                <div class="row">
+                    <!-- Series Cards - Row 1 -->
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 1">
+                            <div class="movie-info">
+                                <h5 class="movie-title">God's Own Country</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 2">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Bad Times</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 3">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Jason Bourne</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 4">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Moonlit</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 5">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Papillon</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 6">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Cold War</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Series Cards - Row 2 -->
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 7">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Star Trek</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 8">
+                            <div class="movie-info">
+                                <h5 class="movie-title">The Glass Ship</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 9">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Cold War</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 10">
+                            <div class="movie-info">
+                                <h5 class="movie-title">The Garden of Allah</h5>
+                                <p class="movie-year">2018</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 11">
+                            <div class="movie-info">
+                                <h5 class="movie-title">The Jungle Book</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <div class="movie-card">
+                            <img src="" alt="Series 12">
+                            <div class="movie-info">
+                                <h5 class="movie-title">Bohemian Rhapsody</h5>
+                                <p class="movie-year">2019</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="action-series" role="tabpanel" aria-labelledby="action-series-tab">
+            </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>  
 </body>
 </html>
