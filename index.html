@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALLEZCINE!</title>
-  <!-- Bootstrap CSS -->
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome -->
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     :root {
@@ -21,7 +21,6 @@
       overflow-x: hidden;
     }
 
-    /* Header & Navigation */
     .logo {
       font-weight: bold;
       font-size: 24px;
@@ -47,13 +46,20 @@
       border-radius: 0;
     }
 
-    /* Hero Section */
     .hero {
       background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600') center/cover no-repeat;
       height: 600px;
       color: white;
       position: relative;
     }
+
+  
+  .carousel-inner{
+    position: relative;
+    width: 1780px;
+    height: 600px;
+    margin: auto;
+  }
 
     .hero-content {
       position: absolute;
@@ -112,8 +118,7 @@
     .hero-indicator.active {
       background-color: var(--primary);
     }
-
-    /* Top Contact Bar */
+  
     .top-bar {
       background-color: var(--primary);
       color: white;
@@ -125,7 +130,6 @@
       text-decoration: none;
     }
 
-    /* Movie Sections */
     .section-title {
       position: relative;
       margin: 40px 0 20px;
@@ -192,8 +196,6 @@
       display: block;
       text-align: center;
     }
-
-    /* Shop Section */
     .shop-section {
       margin-top: 40px;
     }
@@ -213,7 +215,6 @@
       padding: 5px 10px;
     }
 
-    /* Modal */
     .movie-modal {
       position: fixed;
       bottom: 0;
@@ -252,7 +253,6 @@
       margin-bottom: 10px;
     }
 
-    /* Contact Section */
     .contact-section {
       padding: 40px 0;
     }
@@ -271,7 +271,6 @@
       text-transform: uppercase;
     }
 
-    /* Newsletter */
     .newsletter {
       background-color: #f9f9f9;
       padding: 30px 0;
@@ -292,8 +291,6 @@
       padding: 10px 20px;
       text-transform: uppercase;
     }
-
-    /* Footer */
     footer {
       background-color: #000;
       color: white;
@@ -370,7 +367,6 @@
       color: white;
     }
 
-    /* Social sidebar */
     .social-sidebar {
       position: fixed;
       left: 0;
@@ -451,16 +447,23 @@
       </div>
     </nav>
     <div class="hero">
+      <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../projet1/images/inception.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../projet1/images/seven.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../projet1/images/thefall.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+      </div>
       <div class="hero-content">
         <h1 class="hero-title">LATEST <span>ON</span>LINE <span>MO</span>VIES</h1>
         <p class="hero-subtitle">IN SPACE NO ONE CAN HEAR YOU SCREAM</p>
         <button class="btn btn-watch">WATCH TRAILER</button>
-        <div class="hero-indicators">
-          <div class="hero-indicator "></div>
-          <div class="hero-indicator active"></div>
-          <div class="hero-indicator"></div>
-          <div class="hero-indicator"></div>
-        </div>
       </div>
     </div>
   </header>
