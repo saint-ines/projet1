@@ -293,36 +293,101 @@
       text-transform: uppercase;
     }
 
+    .movie-card {
+      transition: transform 0.3s;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 5px;
+  }
+  
+  .movie-card:hover {
+      transform: translateY(-5px);
+  }
+  
+  .movie-thumbnail {
+      width: 100%;
+      height: 250px;
+      background-color: #575656;
+  }
+
+    .subscribe-form button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+  }
+  
+  .movie-modal .modal-content {
+      background-color: #222;
+      color: white;
+  }
+  
+  .movie-modal .modal-header {
+      border-bottom: 1px solid #444;
+  }
+  
+  .movie-modal .modal-footer {
+      border-top: 1px solid #444;
+  }
+  
+  .movie-modal .close {
+      color: white;
+  }
+  
+  .movie-modal .featured-image {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: cover;
+  }
+
+    .movie-shop-item {
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      transition: transform 0.3s;
+  }
+  
+  .movie-shop-item:hover {
+      transform: translateY(-5px);
+  }
+  
+  .movie-shop-item .price {
+      color: var(--primary-color);
+      font-weight: bold;
+      font-size: 1.2rem;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+      margin-bottom: 15px;
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ddd;
+  }
+  
+  .contact-form button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+  }
+  
+  .pagination {
+      justify-content: center;
+      margin-top: 30px;
+  }
+
     footer {
       background-color: #000;
-      color: white;
-      padding: 40px 0 20px;
+      padding: 25px 100px;
+      color: #909191;
     }
 
-    footer h5 {
-      color: var(--primary);
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      font-size: 16px;
-    }
-
-    footer ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    footer ul li {
-      margin-bottom: 10px;
-    }
-
-    footer ul li a {
-      color: #aaa;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    footer ul li a:hover {
-      color: var(--primary);
+    footer .colonnes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
     }
 
     .social-links {
@@ -389,18 +454,22 @@
 
     .social-sidebar .facebook {
       background-color: #3b5998;
+       border-radius: 9px;
     }
 
     .social-sidebar .twitter {
       background-color: #1da1f2;
+      border-radius: 9px;
     }
 
     .social-sidebar .google {
       background-color: #db4437;
+      border-radius: 9px;
     }
 
-    .social-sidebar .pinterest {
-      background-color: #bd081c;
+    .social-sidebar .instagram {
+      background: linear-gradient(to right, rgb(255,0,0), rgb(247, 124, 134), rgb(241, 201, 106));
+      border-radius: 9px;
     }
   </style>
 </head>
@@ -410,7 +479,7 @@
     <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
     <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
     <a href="#" class="google"><i class="fab fa-google-plus-g"></i></a>
-    <a href="#" class="pinterest"><i class="fab fa-pinterest-p"></i></a>
+    <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
   </div>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark">
@@ -777,9 +846,97 @@
       </div>
       <div class="tab-pane fade" id="action-series" role="tabpanel" aria-labelledby="action-series-tab">
       </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+  </section>
+  <section id="shop" class="py-5">
+    <div class="container">
+        <h3 class="section-title">SHOP MOVIES</h3>
+        
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="movie-shop-item">
+                    <div class="movie-thumbnail"></div>
+                    <div class="p-3">
+                        <h5>World War Z</h5>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="price">€19.99</span>
+                            <button class="btn btn-sm btn-outline-danger">Acheter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="movie-shop-item">
+                    <div class="movie-thumbnail"></div>
+                    <div class="p-3">
+                        <h5>Life Before Today</h5>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="price">€24.99</span>
+                            <button class="btn btn-sm btn-outline-danger">Acheter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="movie-shop-item">
+                    <div class="movie-thumbnail"></div>
+                    <div class="p-3">
+                        <h5>Deepwater</h5>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="price">€14.99</span>
+                            <button class="btn btn-sm btn-outline-danger">Acheter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="movie-shop-item">
+                    <div class="movie-thumbnail"></div>
+                    <div class="p-3">
+                        <h5>Songs of Time</h5>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="price">€29.99</span>
+                            <button class="btn btn-sm btn-outline-danger">Acheter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  <footer>
+    <h5><strong>Des questions ? Appelez le +32 465 00 00</strong></h5>
+    <div class="colonnes">
+      <div class="colonne">
+        <p>FAQ</p>
+        <p>Relations Investisseurs</p>
+        <p>Modes de lecture</p>
+        <p>Mentions légales</p>
+        <p>Programmes originaux Netflix</p>
+      </div>
+      <div class="colonne">
+        <p>Centre d'aide</p>
+        <p>Relations Investisseurs</p>
+        <p>Modes de lecture</p>
+        <p>Mentions légales</p>
+        <p>Programmes originaux Netflix</p>
+      </div>
+      <div class="colonne">
+        <p>FAQ</p>
+        <p>Recrutement</p>
+        <p>Conditions d'utilisation</p>
+        <p>Nous contacter</p>
+      </div>
+      <div class="colonne">
+        <p>Compte</p>
+        <p>Utiliser des cartes cadeaux</p>
+        <p>Confidentialité</p>
+        <p>Test de vitesse</p>
+      </div>
+    </div>
+    <p>Netflix, Sénégal</p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
