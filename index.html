@@ -20,6 +20,11 @@
       font-family: 'Roboto', sans-serif;
       overflow-x: hidden;
     }
+    .modal-content{
+      background-color: #fe0606;
+      text-decoration: #fff;
+      border-radius: 50px;
+    }
 
     .navbar {
       background-color: transparent;
@@ -239,11 +244,6 @@
       padding: 15px;
     }
 
-    .modal-title {
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-
     .contact-section {
       padding: 40px 0;
     }
@@ -385,6 +385,7 @@
       padding: 20px;
       margin-bottom: 40px;
       color: #333;
+      border-radius: 40px;
     }
 
     .contact-section h2 {
@@ -544,27 +545,6 @@
       background-color: #e74c3c;
     }
 
-    @media (max-width: 768px) {
-      .footer-links {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .contact-form {
-        grid-template-columns: 1fr;
-      }
-
-      .form-row-full {
-        grid-column: span 1;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .footer-links {
-        grid-template-columns: 1fr;
-
-      }
-    }
-
     .social-links {
       display: flex;
       justify-content: center;
@@ -650,7 +630,7 @@
 </head>
 
 <body>
-  <div class="modal fade" id="ageVerificationModal" tabindex="-1" aria-labelledby="ageVerificationModalLabel"
+  <div class="modal fade" id="ageVerificationModal"  aria-labelledby="ageVerificationModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -662,7 +642,7 @@
           <input type="number" id="ageInput" class="form-control" placeholder="Âge">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="verifyAge()">Entrer</button>
+          <button type="button" class="btn btn-warning" onclick="verifyAge()">Entrer</button>
         </div>
       </div>
     </div>
